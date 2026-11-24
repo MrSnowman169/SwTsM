@@ -1,0 +1,44 @@
+[package]
+name = "swtsm"
+version = "1.0.0"
+edition = "2021"
+description = "SwTsM — a fast, themeable Windows Task Manager written in Rust"
+authors = ["MrSnowman"]
+
+[[bin]]
+name = "SwTsM"
+path = "src/main.rs"
+
+[workspace]
+members = ["installer"]
+
+[dependencies]
+eframe = { version = "0.29", default-features = false, features = ["glow", "default_fonts"] }
+egui_extras = "0.29"
+sysinfo = "0.32"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+winreg = "0.52"
+
+[dependencies.windows-sys]
+version = "0.59"
+features = [
+    "Win32_Foundation",
+    "Win32_Security",
+    "Win32_System_Threading",
+    "Win32_System_Services",
+    "Win32_System_LibraryLoader",
+    "Win32_Graphics_Dwm",
+    "Win32_Graphics_Gdi",
+    "Win32_System_Com",
+    "Win32_Storage_FileSystem",
+    "Win32_UI_Shell",
+    "Win32_UI_WindowsAndMessaging",
+]
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+strip = true
+panic = "abort"
